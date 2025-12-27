@@ -24,7 +24,7 @@ html_template = """
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI Face Swap | @aaka8h</title>
     <meta name="author" content="@aaka8h">
-    <link rel="icon" href="https://files.catbox.moe/gt0b6x.jpg" />
+    <link rel="icon" href="https://i.ibb.co/nMCVZmKB/IMG-20251028-112754-123.webp" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
