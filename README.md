@@ -34,7 +34,7 @@ This is a **Serverless Web Application** designed to perform high-quality AI fac
 
 1.  **Clone this repository:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/repo-name.git](https://github.com/YOUR_USERNAME/repo-name.git)
+    git clone [https://github.com/Aaka8h2/Face-Swap.git](https://github.com/Aaka8h2/Face-Swap.git)
     ```
 
 2.  **Install dependencies:**
