@@ -34,7 +34,7 @@ This is a **Serverless Web Application** designed to perform high-quality AI fac
 
 1.  **Clone this repository:**
     ```bash
-    git clone [https://github.com/Aaka8h2/Face-Swap.git](https://github.com/Aaka8h2/Face-Swap.git)
+    git clone [https://github.com/aaka8h2/Face-Swap.git](https://github.com/aaka8h2/Face-Swap.git)
     ```
 
 2.  **Install dependencies:**
@@ -69,11 +69,11 @@ This app is pre-configured for **Vercel**.
 For full source code, customization, or API integration support, contact the developer:
 
 * **Telegram:** [@aaka8h](https://t.me/aaka8h)
-* **Channel:** [Join Telegram Channel](https://t.me/aaka8h)
+* **Channel:** [Join Telegram Channel](https://t.me/binarry0)
 
 ---
 
 ### ⚠️ Disclaimer
 This tool is for educational purposes only. The face swap technology is powered by third-party APIs. Please use responsibly.
 
-Copyright © 2025 @aaka8h
+Copyright © 2025 @aaka8h2. All rights reserved.
