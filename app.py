@@ -230,11 +230,6 @@ html_template = """
                                 <p class="text-center text-dim">
                                     New here? <a href="#" class="text-white fw-bold" onclick="toggleAuth('signup')">Create Account</a>
                                 </p>
-                                <div class="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
-                                    <button type="button" onclick="factoryReset()" class="btn btn-sm btn-outline-danger border-0">
-                                        <i class="fas fa-trash-alt me-1"></i> Reset App Data
-                                    </button>
-                                </div>
                             </form>
                         </div>
 
@@ -378,13 +373,6 @@ html_template = """
             } else {
                 document.getElementById('signupForm').style.display = 'none';
                 document.getElementById('loginForm').style.display = 'block';
-            }
-        }
-
-        function factoryReset() {
-            if(confirm("This will delete ALL accounts and data from this browser. Are you sure?")) {
-                localStorage.clear();
-                location.reload();
             }
         }
 
