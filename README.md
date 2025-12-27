@@ -1,6 +1,6 @@
-# 🎭 AI Face Swap Pro
+# 🎭 AI Face Swap
 
-> **Premium AI Face Swap App** with built-in Authentication, Credit System, and Local History.  
+> A simple, clean, and powerful AI Face Swap App.
 > **Developed by:** [@aaka8h](https://t.me/aaka8h)
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
@@ -9,24 +9,14 @@
 
 ## 🌟 Overview
 
-This is a **Serverless Web Application** designed to perform high-quality AI face swaps. It solves the problem of stateless hosting (like Vercel) by using a **Client-Side Database System**, ensuring users can sign up, log in, and maintain credits without a dedicated backend database.
+This is a **Serverless Web Application** designed to perform high-quality AI face swaps. It is lightweight, fast, and easy to deploy.
 
 ## ✨ Key Features
 
-### 🔐 Secure Authentication
-* **No Database Required:** Uses Browser LocalStorage to manage user sessions securely.
-* **Privacy First:** User credentials and history are stored on the user's device, not on the server.
-* **Multi-User Support:** Supports multiple accounts on the same browser (cleverly separated).
-
-### 💎 Smart Credit System
-* **Welcome Bonus:** Every new signup gets **5 Free Credits**.
-* **Usage Tracking:** 1 Swap = 1 Credit.
-* **Live Updates:** Credits update instantly after every swap.
-
-### 🎨 Modern UI/UX
-* **Glassmorphism:** A beautiful, dark-themed UI with frosted glass effects.
-* **Responsive:** Works perfectly on Mobile, Tablet, and Desktop.
-* **History:** Automatically saves the last 6 generated images locally.
+*   **High-Quality Swaps:** Leverages a powerful third-party API for realistic results.
+*   **Simple Interface:** A clean, modern, and easy-to-use interface.
+*   **Responsive:** Works perfectly on Mobile, Tablet, and Desktop.
+*   **Serverless:** Can be deployed on serverless platforms like Vercel.
 
 ---
 

@@ -182,81 +182,9 @@ html_template = """
         <h4 class="brand-font">Processing Magic...</h4>
     </div>
 
-    <nav class="navbar" id="appNavbar" style="display: none;">
-        <div class="container">
-            <a class="navbar-brand brand-font text-white" href="#">
-                <i class="fas fa-bolt text-warning me-2"></i>AB SWAP
-            </a>
-            <div class="d-flex align-items-center gap-3">
-                <div class="credits-badge">
-                    <i class="fas fa-coins text-warning"></i>
-                    <span id="creditDisplay">0 Credits</span>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-sm btn-outline-light rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user-circle me-1"></i> <span id="usernameDisplay">User</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-
     <div class="container py-5">
         
-        <div id="authView" class="view-section active">
-            <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="text-center mb-5">
-                        <h1 class="brand-font display-4 mb-2">AB Face Swap</h1>
-                        <p class="text-dim">Next Gen AI Tools by <a href="https://t.me/aaka8h" class="text-info text-decoration-none">@aaka8h</a></p>
-                    </div>
-
-                    <div class="glass-panel">
-                        <div id="loginForm">
-                            <h3 class="brand-font mb-4">Welcome Back</h3>
-                            <form onsubmit="handleLogin(event)">
-                                <div class="mb-3">
-                                    <label class="text-dim small text-uppercase fw-bold">Username</label>
-                                    <input type="text" id="loginUser" class="form-control" required placeholder="Enter username" autocomplete="off">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="text-dim small text-uppercase fw-bold">Password</label>
-                                    <input type="password" id="loginPass" class="form-control" required placeholder="Enter password">
-                                </div>
-                                <button type="submit" class="btn-gradient mb-3">Login</button>
-                                <p class="text-center text-dim">
-                                    New here? <a href="#" class="text-white fw-bold" onclick="toggleAuth('signup')">Create Account</a>
-                                </p>
-                            </form>
-                        </div>
-
-                        <div id="signupForm" style="display: none;">
-                            <h3 class="brand-font mb-4">Create Account</h3>
-                            <div class="alert alert-info py-2 small"><i class="fas fa-gift me-2"></i>Get 5 Free Credits on Signup!</div>
-                            <form onsubmit="handleSignup(event)">
-                                <div class="mb-3">
-                                    <label class="text-dim small text-uppercase fw-bold">Choose Username</label>
-                                    <input type="text" id="signupUser" class="form-control" required autocomplete="off">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="text-dim small text-uppercase fw-bold">Choose Password</label>
-                                    <input type="password" id="signupPass" class="form-control" required>
-                                </div>
-                                <button type="submit" class="btn-gradient mb-3">Sign Up</button>
-                                <p class="text-center text-dim">
-                                    Have an account? <a href="#" class="text-white fw-bold" onclick="toggleAuth('login')">Login</a>
-                                </p>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="appView" class="view-section">
+        <div id="appView" class="view-section active">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     
@@ -296,7 +224,7 @@ html_template = """
 
                             <div class="mt-4 pt-2">
                                 <button type="submit" class="btn-gradient" id="submitBtn" disabled>
-                                    <i class="fas fa-wand-magic-sparkles me-2"></i> Swap Faces (1 Credit)
+                                    <i class="fas fa-wand-magic-sparkles me-2"></i> Swap Faces
                                 </button>
                             </div>
                         </form>
@@ -313,10 +241,6 @@ html_template = """
                         </div>
                     </div>
 
-                    <div class="mt-5">
-                        <h4 class="brand-font mb-4"><i class="fas fa-history me-2 text-dim"></i>My History</h4>
-                        <div class="row g-3" id="historyGrid"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -330,130 +254,13 @@ html_template = """
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ==========================================
-        // LOCAL DATABASE LOGIC (Vercel Compatible)
-        // ==========================================
-        const DB = {
-            getUsers: () => {
-                try {
-                    return JSON.parse(localStorage.getItem('ab_users') || '[]');
-                } catch(e) {
-                    console.error("Data Corrupted", e);
-                    return [];
-                }
-            },
-            saveUsers: (users) => localStorage.setItem('ab_users', JSON.stringify(users)),
-            getCurrentUser: () => JSON.parse(localStorage.getItem('ab_current_user')),
-            setCurrentUser: (user) => localStorage.setItem('ab_current_user', JSON.stringify(user)),
-            logout: () => localStorage.removeItem('ab_current_user')
-        };
-
-        let currentUser = null;
-
-        // --- Auth Functions ---
-        function initApp() {
-            currentUser = DB.getCurrentUser();
-            if (currentUser) {
-                showApp();
-            } else {
-                showAuth();
-            }
+        
+        function checkForm() {
+            const s = document.getElementById('source').value;
+            const t = document.getElementById('target').value;
+            document.getElementById('submitBtn').disabled = !(s && t);
         }
-
-        function toggleAuth(view) {
-            // Clear inputs
-            document.getElementById('loginUser').value = '';
-            document.getElementById('loginPass').value = '';
-            document.getElementById('signupUser').value = '';
-            document.getElementById('signupPass').value = '';
-            
-            if (view === 'signup') {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('signupForm').style.display = 'block';
-            } else {
-                document.getElementById('signupForm').style.display = 'none';
-                document.getElementById('loginForm').style.display = 'block';
-            }
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            // FIX: Force Lowercase to prevent Case Sensitivity Issues
-            const u = document.getElementById('signupUser').value.trim().toLowerCase();
-            const p = document.getElementById('signupPass').value.trim();
-            
-            if(u.length < 3) {
-                Swal.fire('Error', 'Username must be at least 3 characters', 'error');
-                return;
-            }
-
-            const users = DB.getUsers();
-            if (users.find(user => user.username === u)) {
-                Swal.fire('Error', 'Username already taken!', 'error');
-                return;
-            }
-
-            const newUser = { username: u, password: p, credits: 5, history: [] };
-            users.push(newUser);
-            DB.saveUsers(users);
-            
-            console.log("Registered:", u); // Debug log
-            
-            Swal.fire('Success', 'Account created! You got 5 free credits.', 'success')
-                .then(() => toggleAuth('login'));
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            // FIX: Force Lowercase to match stored data
-            const u = document.getElementById('loginUser').value.trim().toLowerCase();
-            const p = document.getElementById('loginPass').value.trim();
-
-            const users = DB.getUsers();
-            console.log("Attempting Login:", u); // Debug log
-            console.log("Stored Users:", users.map(user => user.username)); // Debug log
-
-            const user = users.find(usr => usr.username === u && usr.password === p);
-
-            if (user) {
-                DB.setCurrentUser(user);
-                currentUser = user;
-                showApp();
-                Swal.fire({
-                    toast: true, position: 'top-end', showConfirmButton: false,
-                    timer: 3000, icon: 'success', title: `Welcome back, ${u}!`
-                });
-            } else {
-                Swal.fire('Error', 'Invalid username or password. Check console (F12) for debugging.', 'error');
-            }
-        }
-
-        function logout() {
-            DB.logout();
-            location.reload();
-        }
-
-        // --- App UI Functions ---
-        function showApp() {
-            document.getElementById('authView').classList.remove('active');
-            document.getElementById('appView').classList.add('active');
-            document.getElementById('appNavbar').style.display = 'block';
-            updateProfileUI();
-            renderHistory();
-        }
-
-        function showAuth() {
-            document.getElementById('appView').classList.remove('active');
-            document.getElementById('authView').classList.add('active');
-            document.getElementById('appNavbar').style.display = 'none';
-        }
-
-        function updateProfileUI() {
-            if(!currentUser) return;
-            document.getElementById('usernameDisplay').innerText = currentUser.username;
-            document.getElementById('creditDisplay').innerText = `${currentUser.credits} Credits`;
-        }
-
+        
         function triggerUpload(id) { document.getElementById(id).click(); }
 
         function previewImage(input, id) {
@@ -479,20 +286,9 @@ html_template = """
             checkForm();
         }
 
-        function checkForm() {
-            const s = document.getElementById('source').value;
-            const t = document.getElementById('target').value;
-            document.getElementById('submitBtn').disabled = !(s && t);
-        }
-
         // --- Swap Logic ---
         document.getElementById('swapForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            if (currentUser.credits < 1) {
-                Swal.fire('Low Balance', 'You have 0 credits! Contact @aaka8h for refill.', 'warning');
-                return;
-            }
 
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
@@ -511,7 +307,7 @@ html_template = """
                     const resultBase64 = reader.result;
                     
                     // 1. Deduct Credit & Save History
-                    updateUserData(resultBase64);
+                    // updateUserData(resultBase64);
 
                     // 2. Show Result
                     document.getElementById('resultImage').src = resultBase64;
@@ -529,67 +325,6 @@ html_template = """
                 Swal.fire('Failed', 'Something went wrong. Try again.', 'error');
             }
         });
-
-        function updateUserData(imgData) {
-            // Update local object
-            currentUser.credits -= 1;
-            currentUser.history.unshift(imgData);
-            if(currentUser.history.length > 6) currentUser.history.pop(); // Keep last 6
-
-            // Save to DB (Local Storage)
-            DB.setCurrentUser(currentUser); // Update session
-            
-            // Update Main User DB
-            const allUsers = DB.getUsers();
-            const index = allUsers.findIndex(u => u.username === currentUser.username);
-            if(index !== -1) {
-                allUsers[index] = currentUser;
-                DB.saveUsers(allUsers);
-            }
-
-            updateProfileUI();
-            renderHistory();
-        }
-
-        function renderHistory() {
-            const grid = document.getElementById('historyGrid');
-            grid.innerHTML = '';
-            
-            if (!currentUser.history || currentUser.history.length === 0) {
-                grid.innerHTML = '<p class="text-center text-dim w-100">No swaps yet. Start magic!</p>';
-                return;
-            }
-
-            currentUser.history.forEach(img => {
-                const col = document.createElement('div');
-                col.className = 'col-4 col-md-2';
-                col.innerHTML = `
-                    <div class="history-card">
-                        <img src="${img}" onclick="viewHistory('${img}')" style="cursor:pointer">
-                    </div>
-                `;
-                grid.appendChild(col);
-            });
-        }
-
-        function viewHistory(img) {
-            Swal.fire({
-                imageUrl: img,
-                imageAlt: 'Swap Result',
-                showConfirmButton: true,
-                confirmButtonText: 'Download',
-                showCancelButton: true,
-                cancelButtonText: 'Close'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const link = document.createElement('a');
-                    link.href = img;
-                    link.download = 'history_swap.png';
-                    link.click();
-                }
-            });
-        }
-
         function resetSwap() {
             document.getElementById('swapForm').reset();
             document.getElementById('swapForm').style.display = 'block';
@@ -603,10 +338,6 @@ html_template = """
             document.getElementById('btn-rm-target').style.display = 'none';
             document.getElementById('submitBtn').disabled = true;
         }
-
-        // Init
-        initApp();
-
     </script>
 </body>
 </html>
